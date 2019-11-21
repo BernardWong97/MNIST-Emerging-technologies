@@ -1,9 +1,11 @@
-from flask import Flask, escape, request
+# Imports
+import flask as fl
 
-app = Flask(__name__)
+# Instantiate web application
+app = fl.Flask(__name__)
 
 
+# Home page route
 @app.route('/')
-def test():
-    name = request.args.get("name", "Testing")
-    return f'Hello, {escape(name)}'
+def home():
+    return app.send_static_file('index.html')
