@@ -3,7 +3,6 @@
 var canvasWidth = 400, canvasHeight = 400;
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var paintDiv = document.getElementById('paint');
 
 var clickX = new Array();
 var clickY = new Array();
@@ -54,7 +53,7 @@ function redraw() {
   }
 }
 
-$('#canvas').mousedown(function(e){
+$('#canvas').mousedown(function(e) {
   var mouseX = e.pageX - this.offsetLeft;
   var mouseY = e.pageY - this.offsetTop;
 
@@ -63,23 +62,22 @@ $('#canvas').mousedown(function(e){
   redraw();
 });
 
-$('#canvas').mousemove(function(e){
+$('#canvas').mousemove(function(e) {
   if(paint){
     addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
     redraw();
   }
 });
 
-$('#canvas').mouseup(function(e){
+$('#canvas').mouseup(function(e) {
   paint = false;
 });
 
-$('#canvas').mouseleave(function(e){
+$('#canvas').mouseleave(function(e) {
   paint = false;
 });
 
-$('#clearCanvas').mousedown(function(e)
-{
+$('#clearCanvas').mousedown(function(e) {
     clickX = new Array();
     clickY = new Array();
     clickDrag = new Array();
