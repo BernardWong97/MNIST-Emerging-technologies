@@ -8,4 +8,4 @@ app = fl.Flask(__name__)
 # Home page route
 @app.route('/')
 def home():
-    return app.send_static_file('index.html')
+    return fl.render_template("index.html")
