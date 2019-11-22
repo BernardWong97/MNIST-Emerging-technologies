@@ -1,30 +1,22 @@
 // Adapted from: http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/
 
-var canvasWidth = 400, canvasHeight = 400;
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
 
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+var canvasWidth = 400, canvasHeight = 400;
 var clickX = new Array();
 var clickY = new Array();
 var clickDrag = new Array();
 var paint;
 
-canvas.setAttribute('width', canvasWidth);
-canvas.setAttribute('height', canvasHeight);
+canvas.setAttribute("width", canvasWidth);
+canvas.setAttribute("height", canvasWidth);
 canvas.style.cursor = "crosshair";
-drawCanvas();
-
-function drawCanvas() {
-    ctx.rect(0, 0, canvasWidth, canvasHeight);
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "black";
-    ctx.stroke();
-}
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.beginPath();
-    drawCanvas();
 }
 
 function addClick(x, y, dragging) {
@@ -35,9 +27,10 @@ function addClick(x, y, dragging) {
 
 function redraw() {
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  drawCanvas();
+
   ctx.strokeStyle = 'black';
   ctx.lineJoin = 'round';
+  ctx.lineWidth = 5;
 
 
   for(var i=0; i < clickX.length; i++) {
