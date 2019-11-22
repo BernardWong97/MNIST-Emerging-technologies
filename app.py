@@ -1,6 +1,6 @@
 # Imports
 from flask import Flask, render_template, request
-import cv2
+from skimage import io, transform
 import numpy as np
 import base64
 
@@ -28,11 +28,9 @@ def predict():
     with open('output.png', 'wb') as f:
         f.write(decodedimg)
 
-    x = cv2.imread('output.png')
-    x = cv2.resize(x, dsize=(28, 28), interpolation=cv2.INTER_CUBIC)
-    x = ~np.array(list(x)).reshape(1, 28, 28).astype(np.uint8)
-    print('size = ' + str(x.size))
-    print('shape = ' + str(x.shape))
+    x = io.imread('output.png', as_gray=True)
+    x = transform.resize(x, (28, 28))
+    x = x.reshape(1, 28, 28, 1)
 
     with graph.as_default():
         out = model.predict(x)
@@ -40,4 +38,7 @@ def predict():
         print(np.argmax(out, axis=1))
         response = np.array_str(np.argmax(out, axis=1))
         return response
-    # return "Test"
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)

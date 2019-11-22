@@ -4,7 +4,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-var canvasWidth = 400, canvasHeight = 400;
+var canvasWidth = 280, canvasHeight = 280;
 var clickX = new Array();
 var clickY = new Array();
 var clickDrag = new Array();
