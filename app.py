@@ -1,8 +1,10 @@
 # Imports
 from flask import Flask, render_template, request
-from skimage import io, transform
+from PIL import Image
+from io import BytesIO
 import numpy as np
 import base64
+import PIL.ImageOps as pilops
 
 import sys
 import os
@@ -24,13 +26,16 @@ def home():
 def predict():
     imgbase64 = request.values.get("imgUrl", "0")
     decodedimg = base64.b64decode(imgbase64.split(',')[1])
+    image = Image.open(BytesIO(decodedimg))
+    image = image.convert('L')
+    image = pilops.invert(image)
+    image.save('output.png')
 
-    with open('output.png', 'wb') as f:
-        f.write(decodedimg)
+    x = Image.open('output.png')
+    x = x.resize((28, 28))
+    x = np.array(x)
 
-    x = io.imread('output.png', as_gray=True)
-    x = transform.resize(x, (28, 28))
-    x = x.reshape(1, 28, 28, 1)
+    x = x.reshape(1, 28, 28, 1).astype(np.uint8)
 
     with graph.as_default():
         out = model.predict(x)
