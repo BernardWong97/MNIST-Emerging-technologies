@@ -4,11 +4,11 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-var canvasWidth = 280, canvasHeight = 280;
-var clickX = new Array();
-var clickY = new Array();
-var clickDrag = new Array();
-var paint;
+const canvasWidth = 280, canvasHeight = 280;
+let clickX = new Array();
+let clickY = new Array();
+let clickDrag = new Array();
+let paint;
 
 canvas.setAttribute("width", canvasWidth);
 canvas.setAttribute("height", canvasWidth);
@@ -16,6 +16,7 @@ canvas.style.cursor = "crosshair";
 ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+// Clear the canvas
 function clearCanvas() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.fillStyle = "black";
@@ -23,12 +24,14 @@ function clearCanvas() {
     ctx.beginPath();
 }
 
+// Save the click and drag session coordinated to the arrays
 function addClick(x, y, dragging) {
     clickX.push(x);
     clickY.push(y);
     clickDrag.push(dragging);
 }
 
+// Redraw the canvas with previously saved drawings in the array
 function redraw() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.fillStyle = "black";
@@ -38,7 +41,7 @@ function redraw() {
     ctx.lineWidth = 5;
 
 
-    for (var i = 0; i < clickX.length; i++) {
+    for (let i = 0; i < clickX.length; i++) {
         ctx.beginPath();
         if (clickDrag[i] && i) {
             ctx.moveTo(clickX[i - 1], clickY[i - 1]);
